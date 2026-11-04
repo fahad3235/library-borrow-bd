@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library Borrow BD — Personal Book Lending Tracker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1 id="appTitle">Library Borrow BD</h1>
+    <p class="tagline" id="tagline">Lend books to friends — and remember who has what.</p>
+  </div>
+  <button id="langBtn" class="btn secondary" type="button">বাংলা</button>
+</header>
+
+<main>
+  <section class="cards" aria-label="Summary">
+    <div class="card"><span class="num" id="statBooks">0</span><span class="lbl" id="lblBooks">Books</span></div>
+    <div class="card"><span class="num" id="statOut">0</span><span class="lbl" id="lblOut">Out now</span></div>
+    <div class="card warn"><span class="num" id="statOverdue">0</span><span class="lbl" id="lblOverdue">Overdue</span></div>
+    <div class="card"><span class="num" id="statReturned">0</span><span class="lbl" id="lblReturned">Returned</span></div>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button id="tabBooks" class="tab active" type="button">Books</button>
+    <button id="tabLoans" class="tab" type="button">Loans</button>
+    <button id="tabData" class="tab" type="button">Data</button>
+  </nav>
+
+  <!-- BOOKS -->
+  <section id="paneBooks" class="pane">
+    <h2 id="hAddBook">Add a book</h2>
+    <form id="bookForm" class="form" novalidate>
+      <label><span id="lblTitle">Title *</span><input id="bookTitle" maxlength="200" autocomplete="off"></label>
+      <label><span id="lblAuthor">Author</span><input id="bookAuthor" maxlength="100" autocomplete="off"></label>
+      <label><span id="lblIsbn">ISBN (optional)</span><input id="bookIsbn" maxlength="30" autocomplete="off"></label>
+      <label><span id="lblNote">Note (optional)</span><input id="bookNote" maxlength="300" autocomplete="off"></label>
+      <button id="addBookBtn" class="btn" type="submit">Add book</button>
+      <p id="bookMsg" class="msg" style="display:none"></p>
+    </form>
+
+    <div class="row between">
+      <h2 id="hBookList">My books</h2>
+      <input id="bookSearch" class="search" placeholder="Search title or author…" autocomplete="off">
+    </div>
+    <p id="bookEmpty" class="empty">No books yet. Add your first book above.</p>
+    <ul id="bookList" class="list"></ul>
+  </section>
+
+  <!-- LOANS -->
+  <section id="paneLoans" class="pane" style="display:none">
+    <h2 id="hLend">Lend a book</h2>
+    <form id="loanForm" class="form" novalidate>
+      <label><span id="lblBook">Book *</span><select id="loanBook"></select></label>
+      <label><span id="lblBorrower">Borrower *</span><input id="loanBorrower" maxlength="60" autocomplete="off"></label>
+      <label><span id="lblLendDate">Lend date *</span><input id="loanLendDate" type="date"></label>
+      <label><span id="lblDueDate">Due date *</span><input id="loanDueDate" type="date"></label>
+      <button id="addLoanBtn" class="btn" type="submit">Record loan</button>
+      <p id="loanMsg" class="msg" style="display:none"></p>
+    </form>
+
+    <div class="row between">
+      <h2 id="hLoanList">Loans</h2>
+      <div class="filters" role="group">
+        <button id="fAll" class="chip active" type="button">All</button>
+        <button id="fOut" class="chip" type="button">Out now</button>
+        <button id="fOverdue" class="chip" type="button">Overdue</button>
+        <button id="fReturned" class="chip" type="button">Returned</button>
+      </div>
+    </div>
+    <input id="loanSearch" class="search" placeholder="Search borrower…" autocomplete="off">
+    <p id="loanEmpty" class="empty">No loans yet. Lend a book to see it here.</p>
+    <ul id="loanList" class="list"></ul>
+  </section>
+
+  <!-- DATA -->
+  <section id="paneData" class="pane" style="display:none">
+    <h2 id="hData">Your data</h2>
+    <p id="dataIntro" class="muted">Everything stays in this browser (localStorage). Export a backup, or import one made by this app.</p>
+    <div class="row gap">
+      <button id="exportBtn" class="btn secondary" type="button">Export JSON</button>
+      <label class="btn secondary filebtn"><span id="importLbl">Import JSON</span><input id="importFile" type="file" accept="application/json" hidden></label>
+    </div>
+    <p id="dataMsg" class="msg" style="display:none"></p>
+    <hr>
+    <h3 id="hErase">Erase everything</h3>
+    <p id="eraseIntro" class="muted">Type DELETE below to permanently erase all books and loans.</p>
+    <div class="row gap">
+      <input id="eraseInput" class="search" placeholder="DELETE" autocomplete="off">
+      <button id="eraseBtn" class="btn danger" type="button">Erase all</button>
+    </div>
+    <p id="eraseMsg" class="msg" style="display:none"></p>
+  </section>
+</main>
+
+<footer>
+  <p id="footerNote">Personal lending log — not a library system. Dates use your device's calendar; overdue counts are computed from the due date you entered.</p>
+</footer>
+
+<script src="logic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
